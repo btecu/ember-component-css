@@ -1,4 +1,4 @@
-import podNames from 'ember-component-css/pod-names';
+import podNames from 'ember-component-and-route-css/pod-names';
 
 export default function initRouteStyles(owner, routeNames) {
   const classes = [];

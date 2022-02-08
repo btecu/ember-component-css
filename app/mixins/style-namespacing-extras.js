@@ -1,1 +1,1 @@
-export { default } from 'ember-component-css/mixins/style-namespacing-extras';
+export { default } from 'ember-component-and-route-css/mixins/style-namespacing-extras';

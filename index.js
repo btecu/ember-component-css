@@ -158,13 +158,13 @@ module.exports = {
     let superTree = this._super.treeForAddon.call(this, tree);
     if (ember.isAbove('3.6.0')) {
       return new Funnel(superTree, {
-        exclude: ['ember-component-css/initializers/route-styles.js'],
+        exclude: ['ember-component-and-route-css/initializers/route-styles.js'],
         annotation:
           "Funnel (ember-component-css exclude addon/initializers/route-styles.js in 3.6+)"
       });
     } else {
       return new Funnel(superTree, {
-        exclude: ["ember-component-css/instance-initializers/route-styles.js"],
+        exclude: ["ember-component-and-route-css/instance-initializers/route-styles.js"],
         annotation:
           "Funnel (ember-component-css exclude addon/instance-initializers/route-styles.js in < 3.6)"
       });

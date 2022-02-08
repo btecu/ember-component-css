@@ -1,4 +1,4 @@
-export { default, initialize } from 'ember-component-css/initializers/component-styles';
+export { default, initialize } from 'ember-component-and-route-css/initializers/component-styles';
 
 import Ember from 'ember';
 

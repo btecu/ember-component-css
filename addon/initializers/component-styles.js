@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
 
-import podNames from 'ember-component-css/pod-names';
+import podNames from 'ember-component-and-route-css/pod-names';
 
 const {
   ComponentLookup,
