@@ -11,7 +11,13 @@ let VersionChecker = require("ember-cli-version-checker");
 module.exports = {
 
   _getStyleFunnel: function() {
-    return new Merge([this._getPodStyleFunnel(), this._getClassicStyleFunnel()], {
+    let stylesFunnels = [
+      this._getPodStyleFunnel(),
+      this._getClassicStyleFunnel(),
+      this._getRouteStyleFunnel()
+    ];
+
+    return new Merge(stylesFunnels, {
       annotation: 'Merge (ember-component-css merge pod and classic styles)'
     });
   },
@@ -23,6 +29,21 @@ module.exports = {
       include: ['**/*.{' + this.allowedStyleExtensions + ',}'],
       allowEmpty: true,
       annotation: 'Funnel (ember-component-css grab files)'
+    });
+  },
+
+  _getRouteStyleFunnel() {
+    return new Funnel(this.projectRoot, {
+      exclude: [
+        'styles/app.scss',
+        'styles/base/**/*',
+        'styles/bootstrap*',
+        'styles/components/**/*',
+        `styles/${this.classicStyleDir}/**/*`,
+      ],
+      include: ['styles/**/*.scss'],
+      allowEmpty: true,
+      annotation: 'Funnel (ember-component-css grab route files)'
     });
   },
 

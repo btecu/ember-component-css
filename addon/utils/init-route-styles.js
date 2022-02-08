@@ -4,7 +4,8 @@ export default function initRouteStyles(owner, routeNames) {
   const classes = [];
   for (let i = 0; i < routeNames.length; i++) {
     const routeName = routeNames[i];
-    const styleNamespace = podNames[routeName.replace(/\./g, '/')];
+    const currentPath = routeName.replace(/\./g, '/');
+    const styleNamespace = podNames[`styles/${currentPath}`];
 
     if (styleNamespace) {
       classes.push(styleNamespace);
