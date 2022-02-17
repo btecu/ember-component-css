@@ -14,21 +14,30 @@ module.exports = {
     let stylesFunnels = [
       this._getPodStyleFunnel(),
       this._getClassicStyleFunnel(),
+      this._getColocatedStyleFunnel(),
       this._getRouteStyleFunnel()
     ];
 
     return new Merge(stylesFunnels, {
-      annotation: 'Merge (ember-component-css merge pod and classic styles)'
+      annotation: 'Merge (ember-component-css styles)'
     });
   },
 
   _getPodStyleFunnel: function() {
     return new Funnel(this.projectRoot, {
-      srcDir: this._podDirectory(),
-      exclude: ['styles/**/*'],
+      srcDir: this._podDirectory() || 'pods',
+      exclude: ['components/**/*', 'styles/**/*'],
       include: ['**/*.{' + this.allowedStyleExtensions + ',}'],
       allowEmpty: true,
-      annotation: 'Funnel (ember-component-css grab files)'
+      annotation: 'Funnel (ember-component-css grab pod files)'
+    });
+  },
+
+  _getColocatedStyleFunnel() {
+    return new Funnel(this.projectRoot, {
+      include: [`components/**/*.{${this.allowedStyleExtensions},}`],
+      allowEmpty: true,
+      annotation: 'Funnel (ember-component-css grab colocated files)'
     });
   },
 
@@ -41,7 +50,7 @@ module.exports = {
         'styles/components/**/*',
         `styles/${this.classicStyleDir}/**/*`,
       ],
-      include: ['styles/**/*.scss'],
+      include: [`styles/**/*.{${this.allowedStyleExtensions},}`],
       allowEmpty: true,
       annotation: 'Funnel (ember-component-css grab route files)'
     });
@@ -209,7 +218,6 @@ module.exports = {
   processComponentStyles: function(tree) {
     var podStyles = this._getStyleFunnel();
     this._allPodStyles.push(podStyles);
-
     if (this._namespacingIsEnabled()) {
       podStyles = new ProcessStyles(podStyles, {
         extensions: this.allowedStyleExtensions,
